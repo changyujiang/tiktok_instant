@@ -3,12 +3,16 @@ import os
 
 import openai
 from flask import Flask, redirect, render_template, request, url_for
+from flask_cors import CORS, cross_origin
 
 app = Flask(__name__)
+cors = CORS(app)
+app.config['CORS_HEADERS'] = 'Content-Type'
 openai.api_key = os.getenv("OPENAI_API_KEY")
 
 
 @app.route("/", methods=("GET", "POST"))
+@cross_origin()
 def index():
     if request.method == "POST":
         content = request.form["animal"]
