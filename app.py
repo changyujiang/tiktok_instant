@@ -12,7 +12,6 @@ openai.api_key = os.getenv("OPENAI_API_KEY")
 
 
 @app.route("/", methods=("GET", "POST"))
-@cross_origin()
 def index():
     if request.method == "POST":
         content = request.form["animal"]
@@ -24,6 +23,7 @@ def index():
 
 
 @app.route('/parse', methods=['POST'])
+@cross_origin()
 def parse():
     content = request.json.get('content')
     if content is None or type(content) != str:
